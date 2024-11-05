@@ -15,7 +15,6 @@ h1 {
     font-size: 39px;
     line-height: 42px;
     margin-bottom: 50px;
-
 }
 
 h2 {
@@ -68,6 +67,10 @@ a:hover {
 
 .right a {
     float: right;
+}
+
+.center a {
+    float: center;
 }
 
 .container {
@@ -363,6 +366,10 @@ a:hover {
         padding-bottom: 5px;
     }
 
+    .center a {
+        float: center;
+        padding-bottom: 5px;
+    }
 
 
 }
@@ -373,7 +380,7 @@ a:hover {
     .logo {
         margin: -10px 0px;
     }
-    
+
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
