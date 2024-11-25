@@ -1,4 +1,3 @@
-<!--Template from charlyllo-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,7 @@
     <div class="navbar clear nav-top">
         <div class="row content">
             <a href="#"><img class="logo" src="phasr.svg"></a>
+            <a class="nav-title" href="#"><b>phasr</b></a>
             <a class="right" style="text-decoration: underline;" href="#"><i class="fas fa-book"></i>&nbsp; Documentation</a>
             <a class="right" href="mailto:yourapp@email.com" target="_blank"><i class="fas fa-paper-plane"></i>&nbsp; yourapp@email.com</a>
         </div>
@@ -73,26 +73,30 @@
 
             <div class="right-col">
             
-                <h1 class="maintitle"> phasr </h1>
+                <!-- <h1 class="maintitle"> phasr </h1> -->
 
                 <h1 >Introduction</h1>
                 
                 <p> <code> phasr </code> is a python package able to calculate scattering phase shifts for arbitrary radial potentials and calculate (elastic) electron nucleus scattering crosssections based on it. 
-                    In combination with a fitting routine it can be used to fit elastc electron nucleus scattering data to extract charge density parameterizations. </p> 
+                    In combination with a fitting routine it can be used to fit elastic electron nucleus scattering data to extract charge density parameterizations. It is also possible to increase the precision sufficiently to quantitately resolve parity violating electron scattering (optimisation for this use case is planed for a future update). </p> 
             
                 <h2>Versions/Change-Log:</h2>
              
                 <p><b>Version 0.1.0.</b> First uploaded version. Not feature complete.</p>
-
+                
                 <h2>About this Package</h2>
                 
-                <p id="technology"> <code> phasr </code> is a python package able to calculate scattering phase shifts for arbitrary radial potentials and calculate (elastic) electron nucleus scattering crosssections based on it. 
-                    In combination with a fitting routine it can be used to fit elastc electron nucleus scattering data to extract charge density parameterizations. </p>
-
+                <p id="technology"> This package was developed with the goal of extracting charge density parameterizations based on (elastic) electron nucleus scattering crosssection data while properly accounting for Coulomb corrections using the so called phase shift model. 
+                While this procedure is known since the 60s, the documentation and availability of programs used back then, are very limited and hardly accessable. Furthermore, for a majority of nuclei the extractions of model-independent parameterizations of their charge densities have not been updated since the 80s and do not provide any uncertainty estimates. 
+                Since these also applied to the nuclei we where interested in, we build such a framework in phython, which calculates elastic electron nucleus scattering crosssections based on input charge densities using the phase shift model, from which this package evolved. 
+                With such a more modern implementation and programming language, the calculations can become faster, broader accessable, easier to understand and easier to incorporate into exisiting programs. 
+                This package (in its pre-release version) was already used successfully in the papers REFs to extract charge densities for nuclei of interest to $mutoe$ conversion. The package has been benchmarked for nuclei reaching from ... to ... . 
+                
                 <h2>Technology</h2>
                 
-                <p>This program is built with python.<br>
-                ....... Dependencies ... . </p>
+                <p>This program is built with python ... . It requires the following packages for the most basic functions: <br>
+                
+                    ....... Dependencies ... . </p>
 
                 <p id="gettingstarted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p> 
                  
@@ -327,3 +331,4 @@
 
 </body>
 </html>
+<!--Based on template from charlyllo-->

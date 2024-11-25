@@ -69,8 +69,13 @@ a:hover {
     float: right;
 }
 
-.center a {
-    float: center;
+.navbar .nav-title{
+    float: left;
+    margin-top: -20px;
+    margin-left: 70px;
+    color: #0098f1;
+    font-size: 40px;
+    text-decoration: none;
 }
 
 .container {
@@ -152,6 +157,11 @@ a:hover {
 .sidepanel a.title:hover,
 .sidepanel a.section:hover,
 .sidepanel a.sub-section:hover {
+    text-decoration: underline;
+}
+
+.maintitle{
+    color: #0098f1;
     text-decoration: underline;
 }
 
