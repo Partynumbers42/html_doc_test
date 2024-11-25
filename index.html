@@ -6,11 +6,15 @@
     <title>Phasr Doc</title>
     <meta name="description" content="Documentation for the python package phasr">
     <meta name="author" content="Frederic Noël">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-light.min.css"> <!-- Code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> <!-- Code highlighting -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> <!-- Latex -->
     <link rel="stylesheet" href="style.css?">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 </head>
 <body>
+
     <div class="navbar clear nav-top">
         <div class="row content">
             <a href="#"><img class="logo" src="phasr.svg"></a>
@@ -82,21 +86,28 @@
             
                 <h2>Versions/Change-Log:</h2>
              
-                <p><b>Version 0.1.0.</b> First uploaded version. Not feature complete.</p>
+                <p>
+                    <b>Version 0.1.2. :</b> Only skeleton. Not feature complete.<br>
+                    <b>Version 0.1.0. :</b> First uploaded version. Empty. Not feature complete.
+                </p>
                 
                 <h2>About this Package</h2>
                 
                 <p id="technology"> This package was developed with the goal of extracting charge density parameterizations based on (elastic) electron nucleus scattering crosssection data while properly accounting for Coulomb corrections using the so called phase shift model. 
-                While this procedure is known since the 60s, the documentation and availability of programs used back then, are very limited and hardly accessable. Furthermore, for a majority of nuclei the extractions of model-independent parameterizations of their charge densities have not been updated since the 80s and do not provide any uncertainty estimates. 
+                While this procedure is known since the 60s, the documentation and availability of programs used back then, are very limited and hardly accessable. 
+                Furthermore, for a majority of nuclei the extractions of model-independent parameterizations of their charge densities have not been updated since the 80s and do not provide any uncertainty estimates. 
                 Since these also applied to the nuclei we where interested in, we build such a framework in phython, which calculates elastic electron nucleus scattering crosssections based on input charge densities using the phase shift model, from which this package evolved. 
                 With such a more modern implementation and programming language, the calculations can become faster, broader accessable, easier to understand and easier to incorporate into exisiting programs. 
-                This package (in its pre-release version) was already used successfully in the papers REFs to extract charge densities for nuclei of interest to $mutoe$ conversion. The package has been benchmarked for nuclei reaching from ... to ... . 
+                This package (in its pre-release version) was already used successfully in the papers REFs to extract charge densities for nuclei of interest to \( \mu \to e \) conversion. The package has been benchmarked for nuclei reaching from ... to ... . 
                 
                 <h2>Technology</h2>
                 
-                <p>This program is built with python ... . It requires the following packages for the most basic functions: <br>
-                
-                    ....... Dependencies ... . </p>
+                <p>This program is built with python (add Version). <br>
+                It requires the following packages to operate properly: <br>
+                numpy (add Version) <br>
+                scipy (add Version) <br>
+                ....... 
+                ....... Dependencies ... . </p>
 
                 <p id="gettingstarted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p> 
                  
@@ -116,11 +127,16 @@
                 
                 <h2>Install the package</h2>
                 
-                <p> To install and use the program please follow the following steps for setup. We assume you already have a working python enviroment setup on your machine (othewise see REF).</p>
-                
-                   <ol>
+                <p> To install and use the program please follow the following steps for setup. We assume you already have a working python enviroment setup on your machine (othewise see REF).<br>
+                The package is listed on PyPI (TODO), which is why it can be easily accessed via:
+                <pre><code> pip install phasr </code></pre>
+                If you want the latest (development) version, you can clone it from the <a href="https://github.com/Partynumbers42/phasr"> phasr GitHub repository </a>. 
+                </p>
+
+                <!--
+                <ol>
                     <li>
-                     The first thing you need to do to install this app.
+                    The first thing you need to do to install this app.
                     </li>
                     <br>
                     <li>
@@ -132,13 +148,22 @@
                     </li>
                     <br>
                 </ol>
-                
+                -->
 
                 <h2>Use the package</h2>
                 
-                  <p>You can import the pyhton package the same way as every other package. E.g.:</p>
-                
-                 <ol>
+                    <p>You can import the python package the same way as every other package, i.e.: 
+                    <pre><code> import phasr as phr </code></pre>
+                    You can then use the contained methods in the standard way of:
+                    <pre><code> phr.dirac_solver.boundstate(kappa=-1) </code></pre>
+                    We will assume the use of this abbreviation throughout this manual. 
+
+                    </p>
+
+                    
+                <!--
+             
+                <ol>
                     <li>
                      The first thing you need to do to open this app.
                     </li>
@@ -159,6 +184,9 @@
                 
                 <p id="basicfeatures">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
+                -->
+                
+                
                     
             <div class="divider" style="width:24%; margin:30px 0;"></div>
             
@@ -169,8 +197,10 @@
                 
                 <p id="basicfeatures">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                \[ \rho(r) = \dots \]
                 </p>
-                
+
+
                 <h2>The <code>dirac_solver</code> module</h2>
                 
                 <p>
@@ -328,6 +358,7 @@
 
     </div>
 
+<script>hljs.highlightAll();</script>
 
 </body>
 </html>
