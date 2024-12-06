@@ -193,18 +193,68 @@
                 <h1 id="basicfeatures">Basic Modules</h1>
                 
                 <p> The code is structured into two main modules. 
-                    The <code>nucleus</code> module manages all the relevant properties of a nucleus/isotope that is considered and calculates other properties based on the information it has available (e.g. the electric field from the charge density). 
-                    The <code>dirac_solver</code> module manages solving the Dirac equation for a given nucleus based on its nucleus potential and return the desired consequental quantities like for example electron wave functions, phase shifts or the crosssection. 
+                    The <code>nuclei</code> module is home of the <code>nucleus</code> class and manages all the relevant properties of a nucleus/isotope that is considered and calculates other properties based on the information it has available (e.g. the electric field from the charge density). 
+                    The <code>dirac_solvers</code> module manages solving the Dirac equation for a given nucleus based on its nucleus potential and return the desired consequental quantities like for example electron wave functions, phase shifts or the crosssection. 
                     In nearly all applicational scenarios one will first construct a <code>nucleus</code>, which is then used by the <code>dirac_solver</code>. </p>
 
-                <h2 id="nucleus">The <code>nucleus</code> module </h2>
+                <h2 id="nucleus">The <code>nucleus</code> class </h2>
                 
-                <p>TBD 
-                \[ \rho(r) = \dots \]
+                <p> To get a nucleus parameterization, use the <code>nucleus</code> class to construct a nucleus object. 
+                    A nucleus object requires a few minimum parameters (e.g. a name and charge \(Z\)) and and has a lot of optional parameters (e.g. some parameters for a specific parameterization). 
+                    Based on the parameters supplied the class decides what kind of nucleus it is supposed to construct. You can check what parameterization was choosen based on the attribute <code>nucleus_type</code>
+                    
+                    <pre><code class="python"> phr.nucleus(name,Z,A=None,m=None,**args) </code></pre>
+
+                    <ul>
+                        <li>
+                        <b>name</b> (<i>str</i>): Label for the nucleus, part of the filename if things about this nucleus are saved, should be unique.
+                        <br>
+                        <li>
+                        <b>Z</b> (<i>int</i>): Nuclear charge number / proton number of the considered nucleus, necessary for the normalisation. 
+                        Will raise a warning if not consistent with the normalisation of a provided charge density in **args. 
+                        <li>
+                        <b>A</b> (<i>int</i>,optional): Atomic mass number / nucleon number of the considered nucleus; necessary for full functionality; 
+                        enables lookup of nucleon masses, spins and isotope abundancies.  
+                        <li>
+                        <b>m</b> (<i>float</i>,optional) mass of the nucleus, necessary for recoil, can be looked up based on \(Z\), \(A\) if not supplied.
+                        <br>
+                    </ul>
+
+
+                    <table>
+                        <tr>
+                          <th>nucleus_type &emsp;</th>
+                          <th>Parameters / **args</th>
+                        </tr>
+                        <tr>
+                            <td>'Coulomb'</td>
+                            <td> None</td>
+                        </tr>
+                        <tr>
+                            <td>'FB'</td>
+                            <td><b>a</b> (<i>1d-array</i>): Array of parameters \(a_i\) in fm\(^{-3}\). \(N\) given by length of a.  
+                            <br><b>R</b> (<i>float</i>): Cutoff radius R in fm </td>
+                        </tr>
+                        <tr>
+                            <td>'custom'</td>
+                            <td><b>charge_density</b> (<i>callable,optional</i>): Function describing the charge density. 
+                            <br><b>form_factor</b> (<i>callable,optional</i>): Function describing the form factor 
+                            <br> Will deduce/calculate other quantities, based on the given one.</td>
+                        </tr>
+                          
+                      </table> 
+
+                The parameterizations work based on:
+                \[ \rho_\text{F.B.}(r) = \dots \]
+                \[ \rho_\text{S.M.}(r) = \dots \]
+                \[ \rho_\text{Gauss}(r) = \dots \]
+                \[ \rho_\text{2pF}(r) = \dots \]
+                \[ \rho_\text{3pF}(r) = \dots \]
+                \[ \rho_\text{sum of \(\delta\)}(r) = \dots \]
                 </p>
 
 
-                <h2 id="diracsolver">The <code>dirac_solver</code> module </h2>
+                <h2 id="diracsolver">The <code>dirac_solvers</code> module </h2>
                 
                 <p> TBD </p>
 
