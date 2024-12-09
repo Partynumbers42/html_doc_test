@@ -203,7 +203,7 @@
                     A nucleus object requires a few minimum parameters (e.g. a name and charge \(Z\)) and and has a lot of optional parameters (e.g. some parameters for a specific parameterization). 
                     Based on the parameters supplied the class decides what kind of nucleus it is supposed to construct. You can check what parameterization was choosen based on the attribute <code>nucleus_type</code>
                     
-                    <pre><code class="python"> phr.nucleus(name,Z,A=None,m=None,**args) </code></pre>
+                    <pre><code class="python"> phr.nucleus(name,Z,A,m=None,**args) </code></pre>
 
                     <ul>
                         <li>
@@ -213,8 +213,8 @@
                         <b>Z</b> (<i>int</i>): Nuclear charge number / proton number of the considered nucleus, necessary for the normalisation. 
                         Will raise a warning if not consistent with the normalisation of a provided charge density in **args. 
                         <li>
-                        <b>A</b> (<i>int</i>,optional): Atomic mass number / nucleon number of the considered nucleus; necessary for full functionality; 
-                        enables lookup of nucleon masses, spins and isotope abundancies.  
+                        <b>A</b> (<i>int</i>): Atomic mass number / nucleon number of the considered nucleus, necessary for recoil, 
+                        enables lookup of nucleon mass, spin, parity and isotope abundancy.  
                         <li>
                         <b>m</b> (<i>float</i>,optional) mass of the nucleus, necessary for recoil, can be looked up based on \(Z\), \(A\) if not supplied.
                         <br>
