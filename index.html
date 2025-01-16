@@ -216,41 +216,76 @@
                         <b>A</b> (<i>int</i>): Atomic mass number / nucleon number of the considered nucleus, necessary for recoil, 
                         enables lookup of nucleon mass, spin, parity and isotope abundancy.  
                         <li>
-                        <b>m</b> (<i>float</i>,optional) mass of the nucleus, necessary for recoil, can be looked up based on \(Z\), \(A\) if not supplied.
+                        <b>m</b> (<i>float</i>,optional) mass of the nucleus, necessary for recoil, is looked up based on \(Z\), \(A\) if not supplied.
+                        <br>
+                        <li>
+                        <b>abundance</b> (<i>float</i>,optional) natural abundance of the nucleus, stored for convencience, is looked up based on \(Z\), \(A\) if not supplied.
+                        <br>
+                        <li>
+                        <b>spin</b> (<i>float</i>,optional) spin of the nucleus, restricts what multipoles can exist, is looked up based on \(Z\), \(A\) if not supplied.
+                        <br>
+                        <li>
+                        <b>parity</b> (<i>float</i>,optional) parity of the nucleus, stored for convenience, is looked up based on \(Z\), \(A\) if not supplied.
+                        <br>
+                        <li>
+                        <b>k_barrett</b> (<i>float</i>,optional) value of k used to calculate barrett moments.
+                        <br>
+                        <li>
+                        <b>alpha_barrett</b> (<i>float</i>,optional) value of alpha used to calculate barrett moments.
                         <br>
                     </ul>
 
-
                     <table>
                         <tr>
-                          <th>nucleus_type &emsp;</th>
+                          <th>nucleus_type&emsp;&emsp;</th>
                           <th>Parameters / **args</th>
                         </tr>
                         <tr>
-                            <td>'Coulomb'</td>
+                            <td>'coulomb'</td>
                             <td> None</td>
                         </tr>
                         <tr>
-                            <td>'FB'</td>
+                            <td>'fourier-bessel'</td>
                             <td><b>a</b> (<i>1d-array</i>): Array of parameters \(a_i\) in fm\(^{-3}\). \(N\) given by length of a.  
-                            <br><b>R</b> (<i>float</i>): Cutoff radius R in fm </td>
+                            <br><b>R</b> (<i>float</i>): Cutoff radius R in fm. </td>
                         </tr>
                         <tr>
-                            <td>'custom'</td>
+                            <td>'oszillator-basis'</td>
+                            <td><b>Ci_dict</b> (<i>dict</i>): dictionary of 1d-arrays \(C_i\), with mutlipole names as keys (see TODO). </td>
+                        </tr>
+                        <tr>
+                            <td>'fermi'</td>
+                            <td><b>c</b> (<i>float</i>): \(c\) parameter in fm for Fermi parameterisation. 
+                            <br><b>z</b> (<i>float</i>): \(z\) parameter in fm for Fermi parameterisation.
+                            <br><b>w</b> (<i>float</i>,optional): \(w\) parameter for Fermi parameterisation (default: w=0). </td>
+                        </tr>
+                        <tr>
+                            <td>'gauss'</td>
+                            <td><b>b</b> (<i>float</i>): \(b\) parameter in fm for Gauss parameterisation. </td>
+                        </tr>
+                        <tr>
+                            <td>'uniform'</td>
+                            <td><b>rc</b> (<i>float</i>): \(r_c\) parameter in fm for Uniform parameterisation. </td>
+                        </tr>
+                        <tr>
+                            <td>'numerical'</td>
                             <td><b>charge_density</b> (<i>callable,optional</i>): Function describing the charge density. 
-                            <br><b>form_factor</b> (<i>callable,optional</i>): Function describing the form factor 
-                            <br> Will deduce/calculate other quantities, based on the given one.</td>
+                            <br><b>form_factor</b> (<i>callable,optional</i>): Function describing the form factor.
+                            <br><b>electric_field</b> (<i>callable,optional</i>): Function describing the electric field.
+                            <br><b>electric_potential</b> (<i>callable,optional</i>): Function describing the electric potential. 
+                            <br><b>form_factor_dict</b> (<i>dict,optional</i>): Dictionary containing form factor functions for specific multipoles (keys are 'F'+multipole).
+                            <br><b>density_dict</b> (<i>dict,optional</i>): Dictionary containing density functions for specific multipoles (keys are 'rho'+multipole).
+                            <br> Can deduce/calculate other quantities, based on the given one.</td>
                         </tr>
                           
                       </table> 
 
                 The parameterizations work based on:
-                \[ \rho_\text{F.B.}(r) = \dots \]
-                \[ \rho_\text{S.M.}(r) = \dots \]
-                \[ \rho_\text{Gauss}(r) = \dots \]
-                \[ \rho_\text{2pF}(r) = \dots \]
-                \[ \rho_\text{3pF}(r) = \dots \]
-                \[ \rho_\text{sum of \(\delta\)}(r) = \dots \]
+                \[ \rho_\text{FB}(r) = \sum_{i=1}^N a_i ~ j_0(q_i r); \qquad q_i= \frac{i \pi}{R} \]
+                \[ \rho_\text{Fermi}(r) = \rho_0 \frac{1+w \tfrac{r^2}{c^2}}{1 + e^{(r-c)/z}}; \qquad \rho_0 = \frac{Z}{8\pi z^3} (-\text{Li}_3(-e^{c/z}) - 12 w \tfrac{z^2}{c^2} \text{Li}_5(-e^{c/z}) )^{-1} \]
+                \[ \rho_\text{Gauss}(r) = \frac{Z}{\pi^{3/2} b^3} e^{-(r/b)^2} \]
+                \[ \rho_\text{Uni}(r) = \begin{cases} \frac{3 Z}{4 \pi r_c^3} & r \leq r_c \\ 0 & r < r_c \end{cases} \]
+                \[ F_\text{Osz}(q) = e^{-u(q)/2} \sum_i C_i ~ u(q)^i; \qquad u(q)=\frac{q^2 b^2}{2} \]
                 </p>
 
 
