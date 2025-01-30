@@ -88,8 +88,11 @@
                 <h2 id="versions">Versions/Change-Log:</h2>
              
                 <p>
-                    <b>Version 0.1.2. :</b> Only skeleton. Not feature complete.<br>
-                    <b>Version 0.1.0. :</b> First uploaded version. Empty. Not feature complete.
+                    <b>Version 0.2.0. :</b> Basic features implemented.<br>
+                    <b>Version 0.1.4. :</b> Build dirac_solvers module. <br>
+                    <b>Version 0.1.3. :</b> Build nuclei module. <br>
+                    <b>Version 0.1.2. :</b> Build skeleton. <br>
+                    <b>Version 0.1.0. :</b> First init. Empty. 
                 </p>
                 
                 <h2 id="about">About this Package</h2>
@@ -97,9 +100,9 @@
                 <p> This package was developed with the goal of extracting charge density parameterizations based on (elastic) electron nucleus scattering crosssection data while properly accounting for Coulomb corrections using the so called phase shift model. 
                 While this procedure is known since the 60s, the documentation and availability of programs used back then, are very limited and hardly accessable. 
                 Furthermore, for a majority of nuclei the extractions of model-independent parameterizations of their charge densities have not been updated since the 80s and do not provide any uncertainty estimates. 
-                Since these also applied to the nuclei we where interested in, we build such a framework in phython, which calculates elastic electron nucleus scattering crosssections based on input charge densities using the phase shift model, from which this package evolved. 
+                Since these also applied to the nuclei we were interested in, we build such a framework in phython, which calculates elastic electron nucleus scattering crosssections based on input charge densities using the phase shift model, from which this package evolved. 
                 With such a more modern implementation and programming language, the calculations can become faster, broader accessable, easier to understand and easier to incorporate into exisiting programs. 
-                This package (in its pre-release version) was already used successfully in the papers REFs to extract charge densities for nuclei of interest to \( \mu \to e \) conversion a (hypothetical) process of interest in particle physics. The package has been benchmarked for nuclei reaching from ... to ... . 
+                This package (in its pre-release version) has already been used successfully in the papers REFs to extract charge densities for nuclei of interest to \( \mu \to e \) conversion a (hypothetical) process of interest in particle physics. The package has been benchmarked for nuclei reaching from ... to ... . 
                 
                 <h2 id="dependencies">Dependencies</h2>
                 
@@ -114,6 +117,7 @@
 
                 <h1 id="gettingstarted">Getting Started</h1>
 
+                <!--
                 <h2>This is a sub-header</h2>
                 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -122,7 +126,7 @@
                 sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
 
                 <p><b>Important:</b> This line is for an important information.</p>
-                
+                -->
                 
                 <h2 id="installingapp">Install the package</h2>
                 
@@ -154,12 +158,14 @@
                 
                     <p>You can import the python package the same way as every other package, i.e.: 
                     <pre><code> import phasr as phr </code></pre>
-                    You can then use the contained methods in the standard way, e.g.:
-                    <pre><code class="python"> Alu = phr.nucleus(Z=13,A=27)
- phr.dirac_solver.boundstate(Alu,kappa=-1) </code></pre>
+                    You can then use the contained methods in the standard way. For example
+                    <pre><code class="python"> nucleus_Al27 = phr.nucleus(name='Al27',Z=13,A=27,rc=5)
+ mmu = phr.masses.mmu
+ boundstates_Al27 = phr.boundstates(nucleus_Al27,kappa=-1,lepton_mass=mmu) 
+ print('E_1s=',boundstates_Al27.energy_levels[0],'MeV') </code></pre>
+                    will give you the groundstate energy of a muonic atom for the nucleus parameterisation, described used a uniform charge distribution of charge 13 and a radius of 5 fm. 
                     We will assume the import with the alias <code>phr</code> throughout this manual. 
                     </p>
-
                     
                 <!--
              
@@ -194,16 +200,19 @@
                 
                 <p> The code is structured into two main modules. 
                     The <code>nuclei</code> module is home of the <code>nucleus</code> class and manages all the relevant properties of a nucleus/isotope that is considered and calculates other properties based on the information it has available (e.g. the electric field from the charge density). 
-                    The <code>dirac_solvers</code> module manages solving the Dirac equation for a given nucleus based on its nucleus potential and return the desired consequental quantities like for example electron wave functions, phase shifts or the crosssection. 
-                    In nearly all applicational scenarios one will first construct a <code>nucleus</code>, which is then used by the <code>dirac_solver</code>. </p>
+                    The <code>dirac_solvers</code> module is home of the <code>boundstates</code> and <code>continuumstates</code> classes and manages solving the Dirac equation for a given nucleus based on its nucleus potential and returns the desired consequental quantities like for example electron wave functions, phase shifts or the crosssection. 
+                    In all applicational scenarios one will first construct a <code>nucleus</code> object, which is then be used to construct a <code>boundstates</code> or <code>continuumstates</code> object. For calculating elastic scattering crosssections we supply the function <code>crosssection_lepton_nucleus_scattering</code>, 
+                    which can be used to directly calculate the crosssection using the energy, the angle and a <code>nucleus</code> object. </p>
 
                 <h2 id="nucleus">The <code>nucleus</code> class </h2>
                 
                 <p> To get a nucleus parameterization, use the <code>nucleus</code> class to construct a nucleus object. 
-                    A nucleus object requires a few minimum parameters (e.g. a name and charge \(Z\)) and and has a lot of optional parameters (e.g. some parameters for a specific parameterization). 
+                    A nucleus object requires a few minimum parameters (e.g. a name, a charge \(Z\) and a nucleon number \(A\)) and and has a lot of optional parameters (e.g. some parameters for a specific parameterization). 
                     Based on the parameters supplied the class decides what kind of nucleus it is supposed to construct. You can check what parameterization was choosen based on the attribute <code>nucleus_type</code>
                     
                     <pre><code class="python"> phr.nucleus(name,Z,A,m=None,**args) </code></pre>
+                    
+                    General parameters are:
 
                     <ul>
                         <li>
@@ -234,6 +243,8 @@
                         <b>alpha_barrett</b> (<i>float</i>,optional) value of alpha used to calculate barrett moments.
                         <br>
                     </ul>
+                    
+                    Parameterization spezific parameters are:
 
                     <table>
                         <tr>
@@ -280,14 +291,14 @@
                           
                       </table> 
 
-                The parameterizations work based on:
+
+                The parameterizations are based on:
                 \[ \rho_\text{FB}(r) = \sum_{i=1}^N a_i ~ j_0(q_i r); \qquad q_i= \frac{i \pi}{R} \]
                 \[ \rho_\text{Fermi}(r) = \rho_0 \frac{1+w \tfrac{r^2}{c^2}}{1 + e^{(r-c)/z}}; \qquad \rho_0 = \frac{Z}{8\pi z^3} (-\text{Li}_3(-e^{c/z}) - 12 w \tfrac{z^2}{c^2} \text{Li}_5(-e^{c/z}) )^{-1} \]
                 \[ \rho_\text{Gauss}(r) = \frac{Z}{\pi^{3/2} b^3} e^{-(r/b)^2} \]
                 \[ \rho_\text{Uni}(r) = \begin{cases} \frac{3 Z}{4 \pi r_c^3} & r \leq r_c \\ 0 & r < r_c \end{cases} \]
                 \[ F_\text{Osz}(q) = e^{-u(q)/2} \sum_i C_i ~ u(q)^i; \qquad u(q)=\frac{q^2 b^2}{2} \]
                 </p>
-
 
                 <h2 id="diracsolver">The <code>dirac_solvers</code> module </h2>
                 
